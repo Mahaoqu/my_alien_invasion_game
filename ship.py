@@ -14,7 +14,6 @@ class Ship():
         #新飞船位置在底部中央
         self.rect.centerx = self.screen_rect.centerx
         self.rect.bottom = self.screen_rect.bottom
-
         
         self.center = float(self.rect.centerx)
 
@@ -37,5 +36,5 @@ class Ship():
         self.screen.blit(self.image,self.rect)
 
     def center_ship(self):
-        """让飞船在屏幕剧中"""
+        """让飞船在屏幕居中"""
         self.center = self.screen_rect.centerx
