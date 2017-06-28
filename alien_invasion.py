@@ -6,14 +6,17 @@ from settings import Settings
 from game_stats import GameStats
 from button import Button
 import game_function as gf
+from scoreboard import ScoreBoard
 from pygame.sprite import Group
+
 
 
 def run_game(): 
     pygame.init()
 
     ai_settings = Settings()
-    stats = GameStats(ai_settings) #初始化设置和统计信息
+    stats = GameStats(ai_settings) 
+    sb = ScoreBoard(ai_settings, screen, stats) #初始化设置和统计信息
 
     screen = pygame.display.set_mode(
             (ai_settings.screen_width,ai_settings.screen_height))
@@ -36,6 +39,6 @@ def run_game():
             ship.update()
             gf.update_bullets(ai_settings, screen, ship, aliens ,bullets)
 
-        gf.update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button)
+        gf.update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_button)
 
 run_game()

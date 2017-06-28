@@ -7,7 +7,8 @@ def start_game(ai_settings, screen, stats, ship, aliens, bullets):
     """重置并开始新的游戏"""
     pygame.mouse.set_visible(False) #隐藏光标
     stats.reset_stats()
-    stats.game_active = True #重置游戏统计信息
+    stats.game_active = True 
+    ai_settings.increase_speed() #重置游戏统计信息
     
     aliens.empty()
     bullets.empty()
@@ -57,13 +58,15 @@ def check_play_button(ai_settings, screen, stats, play_button, ship, aliens,
     if button_clicked and not stats.game_active:
         start_game(ai_settings, screen, stats, ship, aliens, bullets)
 
-def update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button):
+def update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_button):
     """更新屏幕上的图像，并切换到新屏幕""" 
     screen.fill(ai_settings.bg_color)
     for bullet in bullets.sprites():
         bullet.draw_bullet()
     ship.blitme()
     aliens.draw(screen)
+    sb.show_score()
+    
     if not stats.game_active:
         play_button.draw_button() #如果游戏未开始则绘制开始按钮
 
@@ -161,8 +164,9 @@ def change_fleet_direction(ai_settings,aliens):
 def check_bullet_alien_collisions(ai_settings, screen, ship, aliens ,bullets):
     """判断子弹是否与外星人发生了碰撞，如果是则使其消失"""
     collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
-    if len(aliens) == 0: #如果没有外星人，则新建一群外星人
+    if len(aliens) == 0: #如果没有外星人，则新建一群外星人，并增加一级难度
         bullets.empty()
+        ai_settings.increase_speed()
         create_fleet(ai_settings, screen, ship, aliens)
 
 def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
