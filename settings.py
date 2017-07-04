@@ -17,7 +17,8 @@ class Settings():
         #加快游戏节奏的速度
         self.speedup_scale = 1.1
         # 记分
-        # TODO：Accomplish it！
+        self.alien_points = 50
+        self.score_scale = 1.5
 
         self.initialize_dynamic_settings()
 
@@ -34,3 +35,5 @@ class Settings():
         self.ship_speed_factor *= self.speedup_scale
         self.bullet_speed_factor *= self.speedup_scale
         self.alien_speed_factor *= self.speedup_scale
+        self.alien_points = int( self.score_scale * self.alien_points )
+        print(self.alien_points)
